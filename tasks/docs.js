@@ -5,6 +5,7 @@ var gulpNunjucks = require('gulp-nunjucks');
 var nunjucks = require('nunjucks');
 var nunjucksMd = require('gulp-nunjucks-md');
 var connect = require('gulp-connect');
+var replace = require('gulp-replace');
 
 var config = {
   templates: ['docs/_templates', 'packages'],
@@ -16,6 +17,10 @@ var config = {
  */
 function buildMarkdown() {
   return gulp.src(['docs/**/*.md'])
+    .pipe(replace(/\[([^\]]*?)\]\(([^\)]*?)\.md\)/g, function(match, p1, p2) {
+      // replace .md links with .html
+      return `[${p1}](${p2}.html)`;
+    }))
     .pipe(
       nunjucksMd({
         path: config.templates,
