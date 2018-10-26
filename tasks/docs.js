@@ -9,7 +9,8 @@ var replace = require('gulp-replace');
 
 var config = {
   templates: ['docs/_templates', 'packages'],
-  dest: 'dist/docs'
+  dest: 'dist/docs',
+  baseUrl: process.env.BASE_URL ? process.env.BASE_URL : '',
 }
 
 /**
@@ -26,6 +27,7 @@ function buildMarkdown() {
         path: config.templates,
         data: {
           //site-wide data goes here
+          baseUrl: config.baseUrl,
           page: {
             layout: 'page',
           }
@@ -42,6 +44,7 @@ function buildNunjucks() {
   return gulp.src(['docs/*.njk'])
     .pipe(gulpNunjucks.compile({
       // site-wide data goes here
+      baseUrl: config.baseUrl,
     }, {
       env: new nunjucks.Environment(
         new nunjucks.FileSystemLoader(config.templates)
