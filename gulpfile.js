@@ -4,6 +4,7 @@ var clean = require('gulp-clean');
 var rename = require("gulp-rename");
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
+var zip = require('gulp-zip');
 
 // Read the package.json so that we can use its metadata such as package.version
 var package = require('./package.json');
@@ -73,6 +74,12 @@ function thirdPartyAssets() {
     .pipe(gulp.dest('dist/'));
 }
 
+function createZip() {
+  return gulp.src(['dist/*.min.css', 'dist/*.min.js'])
+    .pipe(zip(`nhsuk-frontend-${package.version}.zip`))
+    .pipe(gulp.dest('dist'))
+}
+
 /**
  * Recompile CSS, JS and docs when there are any changes
  */
@@ -83,7 +90,7 @@ var watch = function() {
 
 gulp.task('clean', cleanDist);
 gulp.task('style', compileCSS);
-gulp.task('bundle', gulp.series([compileCSS, minifyCSS, compileJS, thirdPartyAssets]));
+gulp.task('bundle', gulp.series([compileCSS, minifyCSS, compileJS, thirdPartyAssets, createZip]));
 gulp.task('watch', watch);
 
 
