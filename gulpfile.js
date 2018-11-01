@@ -4,7 +4,6 @@ var rename = require("gulp-rename");
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var del = require('del');
 
 function styles() {
   return gulp.src('packages/nhsuk.scss')
