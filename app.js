@@ -6,8 +6,8 @@ const path = require('path');
 
 app.set('view engine', 'njk');
 app.set('port', process.env.PORT || 3000);
-app.use(express.static(path.join(__dirname, 'app/assets')));
-app.use(express.static(path.join(__dirname, 'packages')));
+app.use(express.static(path.join(__dirname, 'dist')));
+
 
 nunjucks.configure(['app/views', 'packages'], {
   autoescape: true,

@@ -36,6 +36,13 @@ function scripts() {
   .pipe(gulp.dest('dist/'));
 }
 
+function assets() {
+  return gulp.src([
+    'packages/assets/**',
+  ])
+  .pipe(gulp.dest('dist/'))
+}
+
 function watch() {
   gulp.watch('packages/**/*.scss', styles);
 }
@@ -44,5 +51,5 @@ exports.styles = styles;
 exports.scripts = scripts;
 exports.watch = watch;
 
-gulp.task('build', gulp.series([styles, scripts]));
+gulp.task('build', gulp.series([styles, scripts, assets]));
 gulp.task('default', watch);
