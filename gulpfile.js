@@ -12,7 +12,7 @@ function styles() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('packages/'))
+    .pipe(gulp.dest('dist/'))
     .on('error', (err) => {
       console.log(err)
       process.exit(1)
@@ -33,15 +33,6 @@ function scripts() {
   .pipe(rename({
     suffix: '.min'
   }))
-  .pipe(gulp.dest('packages/'));
-}
-
-function bundle() {
-  return gulp.src([
-    'packages/nhsuk.min.css',
-    'packages/nhsuk.js',
-    'packages/assets/libraries/*.js'
-  ])
   .pipe(gulp.dest('dist/'));
 }
 
@@ -53,7 +44,5 @@ exports.styles = styles;
 exports.scripts = scripts;
 exports.watch = watch;
 
-gulp.task('build', styles);
+gulp.task('build', gulp.series([styles, scripts]));
 gulp.task('default', watch);
-gulp.task('scripts', scripts);
-gulp.task('bundle', bundle);

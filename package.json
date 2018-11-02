@@ -11,7 +11,6 @@
     "watch": "concurrently \"gulp\" \"nodemon app.js --config config/nodemon.json -q\"",
     "test": "npm run lint-css",
     "lint-css": "sass-lint -c ./tests/linters/.sass-lint.yml 'packages/**/*.scss' -v -q",
-    "bundle": "npm run build & gulp bundle",
     "backstop:ref": "backstop reference --config=tests/backstop/backstop.json",
     "backstop:test": "backstop test --config=tests/backstop/backstop.json",
     "backstop:clean": "rm -rf tests/backstop/backstop_data/bitmaps_test/*"
@@ -34,6 +33,10 @@
     "sass-lint": "^1.12.1",
     "sass-mq": "^4.0.2"
   },
+  "files": [
+    "dist",
+    "packages"
+  ],
   "engines": {
     "node": "8.11.1"
   },
